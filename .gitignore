@@ -1,0 +1,39 @@
+# Ignore the virtual environment
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.DS_Store
+
+# Ignore database files
+*.sqlite3
+
+# Ignore logs and temporary files
+*.log
+*.pot
+*.py[co]
+*.mo
+*.sw?
+*.sublime-workspace
+
+# Ignore IDE settings
+.vscode/
+.idea/
+*.iml
+
+# Ignore compiled python files
+*.egg-info/
+*.eggs/
+
+# Ignore Django static and media files (if applicable)
+staticfiles/
+media/
+
+# Ignore environment variables (security reasons)
+.env
+*.env
