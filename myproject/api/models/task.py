@@ -1,6 +1,7 @@
 from django.db import models
 from .employment import Employment
 from .group import Group
+
 class Task(models.Model):
     STATUS_CHOICES = [
         ('Open', 'Open'),
@@ -15,7 +16,9 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Open')
-    created_by = models.ForeignKey(Employment, on_delete=models.CASCADE, related_name="tasks_created")
+
+    create_user = models.CharField(max_length=255, db_column="create_user")  
+
     start_date = models.DateField()
     due_date = models.DateField()
     estimated_hours = models.FloatField()
@@ -24,7 +27,7 @@ class Task(models.Model):
     assigned_group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name="tasks")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)  
-    is_delete = models.BooleanField(default=False)  # Cờ đánh dấu xóa (0 = active, 1 = deleted)
+    is_delete = models.BooleanField(default=False)  
 
     def soft_delete(self):
         """Đánh dấu bản ghi là đã xóa thay vì xóa vật lý"""
