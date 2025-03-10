@@ -1,28 +1,16 @@
-from django.urls import path
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from . import views
-
-
-schema_view = get_schema_view(
-openapi.Info(
-   title="Task Management",
-   default_version='v1',
-   description="IDS API report",
-   terms_of_service="https://www.google.com/policies/terms/",
-   contact=openapi.Contact(email="contact@snippets.local"),
-   license=openapi.License(name="BSD License"),
-),
-public=True,
-permission_classes=(permissions.AllowAny,),
-)
-
-
+from django.urls import path, include
+from api.views.account_view import AccountView
+from rest_framework.routers import DefaultRouter
+from api.views.auth_view import RegisterView, LoginView, LogoutView
+# Router cho ViewSet
+router = DefaultRouter()
+router.register(r'accounts', AccountView, basename='accounts')
 urlpatterns = [
-   path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-]
-   
+    # Authentication API
+    path('auth/register/', RegisterView.as_view(), name='register'),
+    path('auth/login/', LoginView.as_view(), name='login'),
+    path('auth/logout/', LogoutView.as_view(), name='logout'),
 
+    # CRUD Account API
+    path('', include(router.urls)),  # /api/accounts/ sẽ tự động ánh xạ vào ViewSet
+]

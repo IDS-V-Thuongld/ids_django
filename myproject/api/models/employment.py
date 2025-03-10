@@ -13,7 +13,7 @@ class Employment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)  
     is_delete = models.BooleanField(default=False)  # Cờ đánh dấu xóa (0 = active, 1 = deleted)
-
+    
     def soft_delete(self):
         """Đánh dấu bản ghi là đã xóa thay vì xóa vật lý"""
         self.is_delete = True
