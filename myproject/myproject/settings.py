@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg'
 ]
+AUTH_USER_MODEL = 'api.Account'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
